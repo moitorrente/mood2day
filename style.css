@@ -116,5 +116,12 @@
   opacity: .5;
 }
 
+/*-----------------------------*/
+.dark-mode {
+  background-color: #1F1F21;
+  color: white;
+}
 
-
+.dark{
+  background-color: #1F1F21;
+}
