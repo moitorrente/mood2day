@@ -218,13 +218,13 @@ const theme = document.getElementById('theme');
 
 theme.addEventListener('click', changeMode)
 
-function changeMode(){
-    if(mode =='light'){
+function changeMode() {
+    if (mode == 'light') {
         darkMode();
-    } else{
+    } else {
         lightMode();
     }
-    
+
 }
 
 function lightMode() {
@@ -269,3 +269,13 @@ function darkMode() {
     textMuted.forEach(x => x.classList.remove('text-muted'));
     textMuted.forEach(x => x.classList.add('text-not-muted'));
 }
+
+const deleteData = document.getElementById('delete');
+deleteData.addEventListener('click', () => {
+
+    if (confirm("¿Quieres borrar los datos")) {
+        localStorage.clear();
+        createMonth(date);
+        displayInfo(date);
+    }
+});
