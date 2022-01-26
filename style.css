@@ -125,3 +125,9 @@
 .dark{
   background-color: #1F1F21;
 }
+
+/* ------------------------------ */
+.offcanvas-bottom {
+
+  height: 70%;
+}

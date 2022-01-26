@@ -28,6 +28,15 @@
                     <a class="me-3 py-2 text-dark text-decoration-none" href="#">Support</a> -->
 
 
+                    <a href="#" class="me-3 py-2 text-dark text-decoration-none" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-gear-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+                        </svg>
+                    </a>
+
                     <a href="#" class="me-3 py-2 text-dark text-decoration-none">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-moon-fill" viewBox="0 0 16 16" id="theme">
@@ -60,31 +69,31 @@
         <div class="list-group list-group-checkable align-items-cente my-4">
             <input class="list-group-item-check " type="radio" name="options" id="option1" value="0" checked>
             <label class="list-group-item py-3 text-center" for="option1">
-                Maravilloso
+                <span id="first-option">Maravilloso</span> 
                 <!-- <span class="d-block small opacity-50">With support text underneath to add more detail</span> -->
             </label>
 
             <input class="list-group-item-check" type="radio" name="options" id="option2" value="1" checked="">
             <label class="list-group-item py-3 text-center" for="option2">
-                Bueno
+                <span id="second-option">Bueno</span> 
                 <!-- <span class="d-block small opacity-50">With support text underneath to add more detail</span> -->
             </label>
 
             <input class="list-group-item-check" type="radio" name="options" id="option3" value="2" checked="">
             <label class="list-group-item py-3 text-center" for="option3">
-                Regulinchi
+                <span id="third-option">Regulinchi</span> 
                 <!-- <span class="d-block small opacity-50">With support text underneath to add more detail</span> -->
             </label>
 
             <input class="list-group-item-check" type="radio" name="options" id="option4" value="3" checked="">
             <label class="list-group-item py-3 text-center" for="option4">
-                Malo
+                <span id="fourth-option">Mal</span> 
                 <!-- <span class="d-block small opacity-50">With support text underneath to add more detail</span> -->
             </label>
 
             <input class="list-group-item-check" type="radio" name="options" id="option5" value="4" checked="">
             <label class="list-group-item py-3 text-center" for="option5">
-                Fatal, gracias
+                <span id="fifth-option">Bueno</span> 
                 <!-- <span class="d-block small opacity-50">With support text underneath to add more detail</span> -->
             </label>
             <input class="list-group-item-check" type="radio" name="options" id="option6" value="5" checked="" hidden>
@@ -215,11 +224,98 @@
                     <div class="modal-footer flex-column border-top-0">
                         <button type="button" class="btn btn-lg btn-primary w-100 mx-0 mb-2" data-bs-dismiss="modal"
                             id="today">Hoy</button>
-                        <button type="button" class="btn btn-lg btn-light w-100 mx-0"
-                            data-bs-dismiss="modal">Cancelar</button>
+                        <!-- <button type="button" class="btn btn-lg btn-light w-100 mx-0"
+                            data-bs-dismiss="modal">Cancelar</button> -->
                     </div>
+
+                    
+                </div>
+
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+        <div class="offcanvas-header container">
+            <h5 id="offcanvasTopLabel">Configuración</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body align-items-center container">
+
+
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                        aria-selected="true">Textos</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+                        aria-selected="false">Datos</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <form class="">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control rounded-4" id="option1-config">
+                            <label for="floatingInput">Primera opción</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control rounded-4" id="option2-config">
+                            <label for="floatingInput">Segunda opción</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control rounded-4" id="option3-config">
+                            <label for="floatingInput">Tercera opción</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control rounded-4" id="option4-config">
+                            <label for="floatingInput">Cuarta opción</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control rounded-4" id="option5-config">
+                            <label for="floatingInput">Quinta opción</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane container-sm" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <button class="w-100 mb-2 btn btn-lg rounded-4 btn-outline-primary" id="download">
+                        Descargar
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-download" viewBox="0 0 16 16">
+                            <path
+                                d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                            <path
+                                d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                        </svg>
+                    </button>
+                    <button class="w-100 mb-2 btn btn-lg rounded-4 btn-outline-primary" id="upload">
+                        Cargar
+                        <input type="file" id="upload-file" class="d-none" accept=".txt">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-upload" viewBox="0 0 16 16">
+                            <path
+                                d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                            <path
+                                d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
+                        </svg>
+                    </button>
+                    <button class="w-100 mb-2 btn btn-lg rounded-4 btn-danger" id="delete">
+                        Eliminar
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-upload" viewBox="0 0 16 16">
+                            <path
+                                d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                            <path
+                                d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
+                        </svg>
+                    </button>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -228,9 +324,8 @@
             <div class="align-items-center justify-content-center justify-content-lg-start">
 
                 <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-                    <li>
+                    <!-- <li>
                         <a href="#" class="nav-link text-dark" id="upload">
-                            <input type="file" id="upload-file" class="d-none" accept=".txt">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-upload" viewBox="0 0 16 16">
                                 <path
@@ -250,7 +345,7 @@
                                     d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
                             </svg>
                         </a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="#" class="nav-link text-dark" data-bs-toggle="modal" data-bs-target="#calendar-modal">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -262,7 +357,7 @@
                             </svg>
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#" class="nav-link text-dark" id="delete">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-trash-fill" viewBox="0 0 16 16">
@@ -270,7 +365,7 @@
                                     d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
                             </svg>
                         </a>
-                    </li>
+                    </li> -->
 
                 </ul>
             </div>
