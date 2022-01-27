@@ -83,7 +83,7 @@ function createMonth(dateu) {
     }
     for (let i = 0; i < month.numberDays; i++) {
         const day = document.createElement('button');
-        day.classList.add('btn', 'cal-btn', 'text-dark');
+        day.classList.add('btn', 'cal-btn', 'text-dark', 'position-relative');
         day.innerHTML = i + 1;
         day.setAttribute('date', getDay(month.firstDay, i));
         day.setAttribute('data-bs-dismiss', 'modal');
@@ -107,7 +107,17 @@ function createMonth(dateu) {
                 backgroud = 'bg-dark'
                 break;
         }
-        if (backgroud) day.classList.add(backgroud, 'text-white');
+        //if (backgroud) day.classList.add(backgroud, 'text-white');
+        if (backgroud) {
+            day.innerHTML = `
+            <span class="position-absolute" style="top: 10%;">${i + 1}</span>
+            <span class="position-absolute ${backgroud} rounded-circle" style="width: .7em; height: .7em;top: 60%;"></span>`;
+
+        } else {
+            day.innerHTML = `
+            <span class="position-absolute" style="top: 10%;">${i + 1}</span>`;
+        }
+
 
         day.addEventListener('click', () => {
             date = day.getAttribute('date');
