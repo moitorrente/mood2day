@@ -98,6 +98,10 @@ function createMonth(dateu) {
         placeholder.classList.add('btn', 'cal-btn');
         placeholder.setAttribute('disabled', '')
         calendarDays.appendChild(placeholder);
+        const placeholder2 = placeholder.cloneNode(true);
+        calendarDays2.appendChild(placeholder2);
+
+
     }
     for (let i = 0; i < month.numberDays; i++) {
         const day = document.createElement('button');
@@ -160,6 +164,8 @@ function createMonth(dateu) {
         placeholder.classList.add('btn', 'cal-btn');
         placeholder.setAttribute('disabled', '')
         calendarDays.appendChild(placeholder);
+        const placeholder2 = placeholder.cloneNode(true);
+        calendarDays2.appendChild(placeholder2);
     }
 
     monthName.innerHTML = month.name;
