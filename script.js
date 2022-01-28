@@ -91,6 +91,7 @@ prevMonth2.addEventListener('click', () => {
 function createMonth(dateu) {
     const month = monthInfo(dateu);
     calendarDays.innerHTML = null;
+    calendarDays2.innerHTML = null;
 
     for (let i = 0; i < month.firstDayIndex - 1; i++) {
         let placeholder = document.createElement('button');
