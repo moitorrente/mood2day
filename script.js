@@ -50,10 +50,15 @@ function checkOption(option) {
 //---------------------------------------------------------------------------------
 const nextMonth = document.getElementById('next-month');
 const prevMonth = document.getElementById('prev-month');
+const nextMonth2 = document.getElementById('next-month2');
+const prevMonth2 = document.getElementById('prev-month2');
 const calendarDays = document.getElementById('cal-days');
+const calendarDays2 = document.getElementById('cal-days2');
 
 const monthName = document.getElementById('month-name');
 const yearName = document.getElementById('year-name');
+const monthName2 = document.getElementById('month-name2');
+const yearName2 = document.getElementById('year-name2');
 
 createMonth(date);
 
@@ -65,6 +70,18 @@ nextMonth.addEventListener('click', () => {
     createMonth(calendarDate);
 });
 prevMonth.addEventListener('click', () => {
+    let d = new Date(calendarDate)
+    var newDate = new Date(d.setMonth(d.getMonth() - 1));
+    calendarDate = newDate.toISOString().split('T')[0];
+    createMonth(calendarDate);
+});
+nextMonth2.addEventListener('click', () => {
+    let d = new Date(calendarDate)
+    var newDate = new Date(d.setMonth(d.getMonth() + 1));
+    calendarDate = newDate.toISOString().split('T')[0];
+    createMonth(calendarDate);
+});
+prevMonth2.addEventListener('click', () => {
     let d = new Date(calendarDate)
     var newDate = new Date(d.setMonth(d.getMonth() - 1));
     calendarDate = newDate.toISOString().split('T')[0];
@@ -86,7 +103,6 @@ function createMonth(dateu) {
         day.classList.add('btn', 'cal-btn', 'text-dark', 'position-relative');
         day.innerHTML = i + 1;
         day.setAttribute('date', getDay(month.firstDay, i));
-        day.setAttribute('data-bs-dismiss', 'modal');
         const saved = localStorage.getItem(day.getAttribute('date'));
 
         let backgroud;
@@ -124,6 +140,15 @@ function createMonth(dateu) {
             displayInfo(date);
         });
         calendarDays.appendChild(day);
+        const day2 = day.cloneNode(true);
+        day2.setAttribute('data-bs-dismiss', 'modal');
+
+        day2.addEventListener('click', () => {
+            date = day2.getAttribute('date');
+            displayInfo(date);
+        });
+        calendarDays2.appendChild(day2);
+
     }
 
     const total = month.firstDayIndex + month.numberDays;
@@ -138,6 +163,8 @@ function createMonth(dateu) {
 
     monthName.innerHTML = month.name;
     yearName.innerHTML = month.year;
+    monthName2.innerHTML = month.name;
+    yearName2.innerHTML = month.year;
 }
 
 const today = document.getElementById('today');
@@ -291,5 +318,3 @@ deleteData.addEventListener('click', () => {
 });
 
 //-----------------------------------------
-
-
