@@ -93,6 +93,8 @@ function createMonth(dateu) {
     calendarDays.innerHTML = null;
     calendarDays2.innerHTML = null;
 
+    let list = [];
+
     for (let i = 0; i < month.firstDayIndex - 1; i++) {
         let placeholder = document.createElement('button');
         placeholder.classList.add('btn', 'cal-btn');
@@ -103,6 +105,9 @@ function createMonth(dateu) {
 
 
     }
+
+
+
     for (let i = 0; i < month.numberDays; i++) {
         const day = document.createElement('button');
         day.classList.add('btn', 'cal-btn', 'text-dark', 'position-relative');
@@ -110,6 +115,7 @@ function createMonth(dateu) {
         day.setAttribute('date', getDay(month.firstDay, i));
         const saved = localStorage.getItem(day.getAttribute('date'));
 
+        if (saved) list.push(saved)
         let backgroud;
         switch (saved) {
             case '0':
@@ -128,7 +134,6 @@ function createMonth(dateu) {
                 backgroud = 'bg-dark'
                 break;
         }
-        //if (backgroud) day.classList.add(backgroud, 'text-white');
         if (backgroud) {
             day.innerHTML = `
             <span class="position-absolute" style="top: 10%;">${i + 1}</span>
@@ -143,7 +148,11 @@ function createMonth(dateu) {
         day.addEventListener('click', () => {
             date = day.getAttribute('date');
             displayInfo(date);
+            createMonth(date)
         });
+
+        if (date == day.getAttribute('date')) day.classList.add('btn-outline-secondary');
+
         calendarDays.appendChild(day);
         const day2 = day.cloneNode(true);
         day2.setAttribute('data-bs-dismiss', 'modal');
@@ -151,10 +160,34 @@ function createMonth(dateu) {
         day2.addEventListener('click', () => {
             date = day2.getAttribute('date');
             displayInfo(date);
+            createMonth(date)
         });
         calendarDays2.appendChild(day2);
 
     }
+
+    let a = list.reduce(function (obj, b) {
+        obj[b] = ++obj[b] || 1;
+        return obj;
+    }, {});
+
+    const por1 = a[0]/month.numberDays*100;
+    const por2 = a[1]/month.numberDays*100;
+    const por3 = a[2]/month.numberDays*100;
+    const por4 = a[3]/month.numberDays*100;
+    const por5 = a[4]/month.numberDays*100;
+
+    const bar1 = document.getElementById('bar1');
+    const bar2 = document.getElementById('bar2');
+    const bar3 = document.getElementById('bar3');
+    const bar4 = document.getElementById('bar4');
+    const bar5 = document.getElementById('bar5');
+
+    bar1.style = `width: ${por1}%`;
+    bar2.style = `width: ${por2}%`;
+    bar3.style = `width: ${por3}%`;
+    bar4.style = `width: ${por4}%`;
+    bar5.style = `width: ${por5}%`;
 
     const total = month.firstDayIndex + month.numberDays;
     const remaining = 42 - total;
