@@ -7,6 +7,10 @@ const prev = document.getElementById('prev');
 let date = url.searchParams.get("date") || new Date().toISOString().split('T')[0];
 let calendarDate = date;
 
+
+const calendarBigBar = document.getElementById('calendar-big-bar');
+const calendarSmallBar = document.getElementById('calendar-small-bar');
+
 let mode = 'light';
 
 options.forEach(option => option.addEventListener('input', () => {
@@ -88,25 +92,26 @@ prevMonth2.addEventListener('click', () => {
     createMonth(calendarDate);
 });
 
-function createMonth(dateu) {
-    const month = monthInfo(dateu);
-    calendarDays.innerHTML = null;
-    calendarDays2.innerHTML = null;
-
-    let list = [];
-
-    for (let i = 0; i < month.firstDayIndex - 1; i++) {
-        let placeholder = document.createElement('button');
+function createPlaceholder(num) {
+    for (let i = 0; i < num; i++) {
+        const placeholder = document.createElement('button');
         placeholder.classList.add('btn', 'cal-btn');
         placeholder.setAttribute('disabled', '')
         calendarDays.appendChild(placeholder);
         const placeholder2 = placeholder.cloneNode(true);
         calendarDays2.appendChild(placeholder2);
-
-
     }
+}
 
 
+function createMonth(dateu) {
+    const month = monthInfo(dateu);
+    calendarDays.innerHTML = null;
+    calendarDays2.innerHTML = null;
+
+    let monthValues = [];
+
+    createPlaceholder(month.firstDayIndex - 1)
 
     for (let i = 0; i < month.numberDays; i++) {
         const day = document.createElement('button');
@@ -115,7 +120,7 @@ function createMonth(dateu) {
         day.setAttribute('date', getDay(month.firstDay, i));
         const saved = localStorage.getItem(day.getAttribute('date'));
 
-        if (saved) list.push(saved)
+        if (saved) monthValues.push(saved)
         let backgroud;
         switch (saved) {
             case '0':
@@ -137,14 +142,11 @@ function createMonth(dateu) {
         if (backgroud) {
             day.innerHTML = `
             <span class="position-absolute" style="top: 10%;">${i + 1}</span>
-            <span class="position-absolute ${backgroud} rounded-circle" style="width: .7em; height: .7em;top: 60%;"></span>`;
-
+            <span class="position-absolute ${backgroud} rounded-circle" style="width: .5em; height: .5em;top: 60%;"></span>`;
         } else {
             day.innerHTML = `
             <span class="position-absolute" style="top: 10%;">${i + 1}</span>`;
         }
-
-
         day.addEventListener('click', () => {
             date = day.getAttribute('date');
             displayInfo(date);
@@ -156,62 +158,58 @@ function createMonth(dateu) {
         calendarDays.appendChild(day);
         const day2 = day.cloneNode(true);
         day2.setAttribute('data-bs-dismiss', 'modal');
-
         day2.addEventListener('click', () => {
             date = day2.getAttribute('date');
             displayInfo(date);
             createMonth(date)
         });
         calendarDays2.appendChild(day2);
-
     }
 
-    let a = list.reduce(function (obj, b) {
+    const monthSum = monthValues.reduce(function (obj, b) {
         obj[b] = ++obj[b] || 1;
         return obj;
-    }, {});
+    }, []);
 
-    const por1 = a[0]/month.numberDays*100;
-    const por2 = a[1]/month.numberDays*100;
-    const por3 = a[2]/month.numberDays*100;
-    const por4 = a[3]/month.numberDays*100;
-    const por5 = a[4]/month.numberDays*100;
+    deleteBar(calendarBigBar);
+    deleteBar(calendarSmallBar);
+    createBar(calendarBigBar, 'bar', monthSum, month.numberDays);
+    createBar(calendarSmallBar, 'bar', monthSum, month.numberDays);
 
-    const bar1 = document.getElementById('bar1');
-    const bar2 = document.getElementById('bar2');
-    const bar3 = document.getElementById('bar3');
-    const bar4 = document.getElementById('bar4');
-    const bar5 = document.getElementById('bar5');
-
-    bar1.style = `width: ${por1}%`;
-    bar2.style = `width: ${por2}%`;
-    bar3.style = `width: ${por3}%`;
-    bar4.style = `width: ${por4}%`;
-    bar5.style = `width: ${por5}%`;
-
-    const total = month.firstDayIndex + month.numberDays;
-    const remaining = 42 - total;
-
-    for (let i = 0; i < remaining; i++) {
-        const placeholder = document.createElement('button');
-        placeholder.classList.add('btn', 'cal-btn');
-        placeholder.setAttribute('disabled', '')
-        calendarDays.appendChild(placeholder);
-        const placeholder2 = placeholder.cloneNode(true);
-        calendarDays2.appendChild(placeholder2);
-    }
-
+    createPlaceholder(42 - (month.firstDayIndex + month.numberDays))
     monthName.innerHTML = month.name;
     yearName.innerHTML = month.year;
     monthName2.innerHTML = month.name;
     yearName2.innerHTML = month.year;
 }
 
+function deleteBar(parent) {
+    parent.innerHTML = null;
+}
+
+function createBar(parent, name, number, numberDays) {
+    const backgrouds = ['bg-info', 'bg-success', 'bg-warning', 'bg-danger', 'bg-dark'];
+    const group = document.createElement('div');
+    group.classList.add('progress', 'my-3');
+    group.setAttribute('id', 'month-recap');
+
+    for (let i = 0; i < 5; i++) {
+        const bar = document.createElement('div');
+        bar.classList.add('progress-bar', backgrouds[i]);
+        bar.setAttribute('role', 'progressbar');
+        bar.setAttribute('name', name);
+        bar.setAttribute('aria-valuemin', '0');
+        bar.setAttribute('aria-valuemax', '100');
+        bar.style = `width: ${number[i] / numberDays * 100}%`
+        group.appendChild(bar);
+    }
+    parent.appendChild(group);
+}
+
 const today = document.getElementById('today');
 today.addEventListener('click', () => {
     date = new Date().toISOString().split('T')[0];
     displayInfo(date);
-
 });
 
 //----------------------------------------------------------
@@ -247,9 +245,7 @@ upload.addEventListener('click', () => {
 uploadFile.addEventListener('change', (event) => {
     console.log('pasa')
     const fileList = event.target.files;
-
     getAsText(fileList[0])
-
 });
 
 function getAsText(fileToRead) {
@@ -266,8 +262,6 @@ function getAsText(fileToRead) {
             });
             createMonth(date);
             displayInfo(date);
-
-
         } catch (e) {
             alert(e)
         }
@@ -301,7 +295,6 @@ function changeMode() {
     } else {
         lightMode();
     }
-
 }
 
 function lightMode() {
