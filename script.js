@@ -5,7 +5,9 @@ const options = document.getElementsByName('options');
 const next = document.getElementById('next');
 const prev = document.getElementById('prev');
 let date = url.searchParams.get("date") || new Date().toISOString().split('T')[0];
+const sharedData = url.searchParams.get("data");
 let calendarDate = date;
+
 
 
 const calendarBigBar = document.getElementById('calendar-big-bar');
@@ -253,20 +255,23 @@ function getAsText(fileToRead) {
     reader.readAsText(fileToRead);
     reader.onload = (event) => {
         const file = event.target.result;
-        localStorage.clear();
-        const data = Object.entries(JSON.parse(file));
-
-        try {
-            data.forEach(day => {
-                if (isValidData(day[0], day[1])) localStorage.setItem(day[0], day[1]);
-            });
-            createMonth(date);
-            displayInfo(date);
-        } catch (e) {
-            alert(e)
-        }
+        loadLocalStorage(file)
     };
     reader.onerror = errorHandler;
+}
+
+function loadLocalStorage(data) {
+    localStorage.clear();
+    const parsed = Object.entries(JSON.parse(data));
+    try {
+        parsed.forEach(day => {
+            if (isValidData(day[0], day[1])) localStorage.setItem(day[0], day[1]);
+        });
+        createMonth(date);
+        displayInfo(date);
+    } catch (e) {
+        alert(e)
+    }
 }
 
 function errorHandler(evt) {
@@ -351,3 +356,23 @@ deleteData.addEventListener('click', () => {
 });
 
 //-----------------------------------------
+
+if (sharedData) {
+    let result = window.confirm('Quieres cargar la información compartida? Esto eliminará tu información actual.');
+    if (result) loadLocalStorage(atob(sharedData));
+}
+const shareButton = document.getElementById('share');
+
+shareButton.addEventListener('click', async () => {
+    console.log(btoa(JSON.stringify(localStorage)))
+    const shareData = {
+        title: 'mood2day',
+        text: 'mood2day',
+        url: `https://moitorrente.github.io/mood2day?data=${btoa(JSON.stringify(localStorage))}`
+    }
+    try {
+        await navigator.share(shareData)
+    } catch (err) {
+        alert(err)
+    }
+});
