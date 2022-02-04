@@ -117,7 +117,13 @@ function createMonth(dateu) {
 
     for (let i = 0; i < month.numberDays; i++) {
         const day = document.createElement('button');
-        day.classList.add('btn', 'cal-btn', 'text-dark', 'position-relative');
+        if (mode == 'light'){
+            day.classList.add('btn', 'cal-btn', 'text-dark', 'position-relative');
+
+        }else{
+            day.classList.add('btn', 'cal-btn', 'text-white', 'position-relative');
+
+        }
         day.innerHTML = i + 1;
         day.setAttribute('date', getDay(month.firstDay, i));
         const saved = localStorage.getItem(day.getAttribute('date'));
@@ -245,7 +251,6 @@ upload.addEventListener('click', () => {
 });
 
 uploadFile.addEventListener('change', (event) => {
-    console.log('pasa')
     const fileList = event.target.files;
     getAsText(fileList[0])
 });
@@ -364,7 +369,6 @@ if (sharedData) {
 const shareButton = document.getElementById('share');
 
 shareButton.addEventListener('click', async () => {
-    console.log(btoa(JSON.stringify(localStorage)))
     const shareData = {
         title: 'mood2day',
         text: 'mood2day',
