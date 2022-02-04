@@ -203,7 +203,7 @@ function createBar(parent, name, number, numberDays) {
 
     for (let i = 0; i < 5; i++) {
         const bar = document.createElement('div');
-        bar.classList.add('progress-bar', backgrouds[i]);
+        bar.classList.add('progress-bar', backgrouds[i], 'progress-bar-striped');
         bar.setAttribute('role', 'progressbar');
         bar.setAttribute('name', name);
         bar.setAttribute('aria-valuemin', '0');
