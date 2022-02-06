@@ -128,8 +128,7 @@
 
 /* ------------------------------ */
 .offcanvas-bottom {
-
-  height: 70%;
+  height: 40%;
 }
 
 
@@ -155,3 +154,6 @@
   padding: 0;
 }
 
+textarea {
+  resize: none;
+}

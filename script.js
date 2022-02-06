@@ -7,30 +7,34 @@ const prev = document.getElementById('prev');
 let date = url.searchParams.get("date") || new Date().toISOString().split('T')[0];
 const sharedData = url.searchParams.get("data");
 let calendarDate = date;
-
-
+let mode = 'light';
 
 const calendarBigBar = document.getElementById('calendar-big-bar');
 const calendarSmallBar = document.getElementById('calendar-small-bar');
 
-let mode = 'light';
+const resume = document.getElementById('resume');
+const resumeLength = document.getElementById('resume-length');
+resume.oninput = () => {
+    resumeLength.innerHTML = `${resume.value.length}/100`;
+    localStorage.setItem(date, getSelectedOption() + resume.value)
+}
 
-options.forEach(option => option.addEventListener('input', () => {
-    localStorage.setItem(date, getSelectedOption());
+options.forEach(option => option.oninput = () => {
+    localStorage.setItem(date, getSelectedOption() + resume.value);
     createMonth(date);
-}));
+});
 
-
-next.addEventListener('click', () => {
+next.onclick = () => {
     date = getDay(date, 1);
     createMonth(date)
     displayInfo(date);
-});
-prev.addEventListener('click', () => {
+};
+
+prev.onclick = () => {
     date = getDay(date, -1);
     createMonth(date)
     displayInfo(date);
-});
+};
 
 displayInfo(date);
 
@@ -38,6 +42,8 @@ function displayInfo(date) {
     const descriptions = getCalendarLiteral(date);
     weekDay.innerHTML = descriptions.weekday;
     stringDate.innerHTML = descriptions.date;
+    resume.value = retrieveText(date);
+    resumeLength.innerHTML = `${resume.value.length}/100`;
     checkOption(retrieveOption(date));
 }
 
@@ -46,7 +52,15 @@ function getSelectedOption() {
 }
 
 function retrieveOption(date) {
-    return localStorage.getItem(date) || 5;
+    const day = localStorage.getItem(date);
+    if (day) return day[0];
+    return 5;
+}
+
+function retrieveText(date) {
+    const day = localStorage.getItem(date)
+    if (day) return day.substring(1);
+    return '';
 }
 
 function checkOption(option) {
@@ -67,7 +81,6 @@ const monthName2 = document.getElementById('month-name2');
 const yearName2 = document.getElementById('year-name2');
 
 createMonth(date);
-
 
 nextMonth.addEventListener('click', () => {
     let d = new Date(calendarDate)
@@ -105,7 +118,6 @@ function createPlaceholder(num) {
     }
 }
 
-
 function createMonth(dateu) {
     const month = monthInfo(dateu);
     calendarDays.innerHTML = null;
@@ -117,16 +129,14 @@ function createMonth(dateu) {
 
     for (let i = 0; i < month.numberDays; i++) {
         const day = document.createElement('button');
-        if (mode == 'light'){
+        if (mode == 'light') {
             day.classList.add('btn', 'cal-btn', 'text-dark', 'position-relative');
-
-        }else{
+        } else {
             day.classList.add('btn', 'cal-btn', 'text-white', 'position-relative');
-
         }
         day.innerHTML = i + 1;
         day.setAttribute('date', getDay(month.firstDay, i));
-        const saved = localStorage.getItem(day.getAttribute('date'));
+        const saved = retrieveOption(day.getAttribute('date'));
 
         if (saved) monthValues.push(saved)
         let backgroud;
@@ -221,14 +231,19 @@ today.addEventListener('click', () => {
 });
 
 //----------------------------------------------------------
-const download = document.getElementById('download');
-const upload = document.getElementById('upload');
-const uploadFile = document.getElementById('upload-file');
+// const download = document.getElementById('download');
+// const upload = document.getElementById('upload');
+// const uploadFile = document.getElementById('upload-file');
 
-download.addEventListener('click', () => {
+// download.addEventListener('click', () => {
+//     const d = new Date().toISOString().split('T')[0];
+//     saveTextAsFile(JSON.stringify(localStorage), `mood2day-${d}.txt`)
+// });
+
+function downloadData() {
     const d = new Date().toISOString().split('T')[0];
-    saveTextAsFile(JSON.stringify(localStorage), `mood2day-${d}.txt`)
-});
+    saveTextAsFile(JSON.stringify(localStorage), `mood2day-${d}.txt`);
+}
 
 function saveTextAsFile(textToWrite, fileNameToSaveAs) {
     const textFileAsBlob = new Blob([textToWrite], { type: 'text/plain' });
@@ -246,24 +261,24 @@ function saveTextAsFile(textToWrite, fileNameToSaveAs) {
     downloadLink.click();
 }
 
-upload.addEventListener('click', () => {
-    uploadFile.click();
-});
+// upload.addEventListener('click', () => {
+//     uploadFile.click();
+// });
 
-uploadFile.addEventListener('change', (event) => {
-    const fileList = event.target.files;
-    getAsText(fileList[0])
-});
+// uploadFile.addEventListener('change', (event) => {
+//     const fileList = event.target.files;
+//     getAsText(fileList[0])
+// });
 
-function getAsText(fileToRead) {
-    const reader = new FileReader();
-    reader.readAsText(fileToRead);
-    reader.onload = (event) => {
-        const file = event.target.result;
-        loadLocalStorage(file)
-    };
-    reader.onerror = errorHandler;
-}
+// function getAsText(fileToRead) {
+//     const reader = new FileReader();
+//     reader.readAsText(fileToRead);
+//     reader.onload = (event) => {
+//         const file = event.target.result;
+//         loadLocalStorage(file)
+//     };
+//     reader.onerror = errorHandler;
+// }
 
 function loadLocalStorage(data) {
     localStorage.clear();
@@ -350,33 +365,43 @@ function darkMode() {
     textMuted.forEach(x => x.classList.add('text-not-muted'));
 }
 
-const deleteData = document.getElementById('delete');
-deleteData.addEventListener('click', () => {
+// const deleteData = document.getElementById('delete');
+// deleteData.addEventListener('click', () => {
 
-    if (confirm("¿Quieres borrar los datos")) {
-        localStorage.clear();
-        createMonth(date);
-        displayInfo(date);
-    }
-});
+//     if (confirm("¿Quieres borrar los datos")) {
+//         localStorage.clear();
+//         createMonth(date);
+//         displayInfo(date);
+//     }
+// });
 
 //-----------------------------------------
 
-if (sharedData) {
-    let result = window.confirm('Quieres cargar la información compartida? Esto eliminará tu información actual.');
-    if (result) loadLocalStorage(atob(sharedData));
-}
-const shareButton = document.getElementById('share');
+// if (sharedData) {
+//     let result = window.confirm('Quieres cargar la información compartida? Esto eliminará tu información actual.');
+//     if (result) loadLocalStorage(atob(sharedData));
+// }
+// const shareButton = document.getElementById('share');
 
-shareButton.addEventListener('click', async () => {
-    const shareData = {
-        title: 'mood2day',
-        text: 'mood2day',
-        url: `https://moitorrente.github.io/mood2day?data=${btoa(JSON.stringify(localStorage))}`
-    }
-    try {
-        await navigator.share(shareData)
-    } catch (err) {
-        alert(err)
-    }
+// shareButton.addEventListener('click', async () => {
+//     const shareData = {
+//         title: 'mood2day',
+//         text: 'mood2day',
+//         url: `https://moitorrente.github.io/mood2day?data=${btoa(JSON.stringify(localStorage))}`
+//     }
+//     try {
+//         await navigator.share(shareData)
+//     } catch (err) {
+//         alert(err)
+//     }
+// });
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    mode = 'dark';
+    darkMode();
+}
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+    const mode = event.matches ? "dark" : "light";
+    if (mode == 'dark') darkMode();
+    if (mode == 'light') lightMode();
 });
