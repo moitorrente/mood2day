@@ -18,7 +18,7 @@
 <body>
     <div class="container py-3">
         <header>
-            <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+            <div class="d-flex flex-column flex-md-row align-items-center pb-1 mb-4 border-bottom">
                 <a class="d-flex align-items-center text-dark text-decoration-none">
                     <span class="fs-4">mood2day</span>
                 </a>
@@ -105,7 +105,17 @@
                         </label>
                         <input class="list-group-item-check" type="radio" name="options" id="option6" value="5"
                             checked="" hidden>
+                        <button class="w-100 my-4 btn btn-lg rounded-4 btn-outline-secondary d-none d-md-block"
+                            data-bs-toggle="offcanvas" data-bs-target="#text-modal">
+                            Resumen
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-fonts" viewBox="0 0 16 16">
+                                <path
+                                    d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
+                            </svg>
+                        </button>
                     </div>
+
                 </div>
                 <div class="col-md-7 d-none d-md-block" id="calendar-big">
                     <div class="rounded-4 shadowtext-center">
@@ -144,18 +154,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="calendar-big-bar">
+                        <div id="calendar-big-bar" class="my-4">
 
                         </div>
-                        <button class="w-100 mb-2 btn btn-lg rounded-4 btn-outline-primary" data-bs-toggle="offcanvas"
-                            data-bs-target="#text-modal">
-                            Resumen
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-fonts" viewBox="0 0 16 16">
-                                <path
-                                    d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
-                            </svg>
-                        </button>
+
                     </div>
                     <!-- <div class=" pt-0 mx-0 rounded-3 ">
 
@@ -236,7 +238,7 @@
                             </div>
                         </div>
                         <div class="modal-footer flex-column border-top-0">
-                            <button type="button" class="btn btn-lg btn-primary w-100 mx-0 mb-2" data-bs-dismiss="modal"
+                            <button type="button" class="btn btn-lg btn-secondary w-100 mx-0 mb-2" data-bs-dismiss="modal"
                                 id="today">Hoy
                             </button>
                         </div>
@@ -336,15 +338,15 @@
         </div>
     </div> -->
 
-    <div class="offcanvas offcanvas-bottom" tabindex="-1" id="text-modal" aria-labelledby="offcanvasTopLabel">
-        <div class="offcanvas-header container">
+    <div class="offcanvas offcanvas-bottom modal-content container-offcanvas container" tabindex="-1" id="text-modal"
+        aria-labelledby="offcanvasTopLabel">
+        <div class="offcanvas-header container pb-0">
             <h5 id="offcanvasTopLabel">Resumen</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body align-items-center container">
             <div class="form-floating">
-                <textarea class="form-control" id="resume" style="height: 100px" maxlength="100"></textarea>
-                <label for="resume" id="resume-length">0/100</label>
+                <textarea class="form-control" rows="3" id="resume" style="height: 100%" maxlength="100"></textarea>
+                <label for="resume" id="resume-length" style="color: grey">0/100</label>
             </div>
         </div>
     </div>

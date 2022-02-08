@@ -335,6 +335,8 @@ function lightMode() {
 
     const dark = document.querySelectorAll('.dark');
     dark.forEach(x => x.classList.remove('dark'));
+    const dark2 = document.querySelectorAll('.dark-mode-2');
+    dark2.forEach(x => x.classList.remove('dark-mode-2'));
 
     theme.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
     class="bi bi-moon-fill" viewBox="0 0 16 16" id="theme">
@@ -363,6 +365,12 @@ function darkMode() {
     const textMuted = document.querySelectorAll('.text-muted');
     textMuted.forEach(x => x.classList.remove('text-muted'));
     textMuted.forEach(x => x.classList.add('text-not-muted'));
+
+    const listGroupItem = document.querySelectorAll('.list-group-item');
+    listGroupItem.forEach(x => x.classList.add('dark-mode-2'));
+    const formControl = document.querySelectorAll('.form-control');
+    formControl.forEach(x => x.classList.add('dark-mode-3'));
+
 }
 
 // const deleteData = document.getElementById('delete');

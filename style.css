@@ -1,9 +1,13 @@
-/* body {
-  background-color: rgba(0, 0, 0, 0.9);
-} */
+body {
+  background-color: var(--bs-light)
+}
 
 .container {
   max-width: 960px;
+}
+
+.container-offcanvas{
+  max-width: 600px;
 }
 
 .pricing-header {
@@ -61,7 +65,9 @@
   }
   .list-group-item-check:hover + .list-group-item {
     background-color: var(--bs-light);
+    color: black;
   }
+
   .list-group-item-check:checked + .list-group-item {
     color: #fff;
     background-color: var(--bs-blue);
@@ -103,6 +109,7 @@
   align-items: center;
   justify-content: center;
   height: 3rem;
+  width: 3rem;
   padding: 0;
 }
 .cal-btn:not([disabled]) {
@@ -118,17 +125,25 @@
 
 /*-----------------------------*/
 .dark-mode {
-  background-color: #1F1F21;
+  background-color: black;
+  color: white;
+}
+.dark-mode-2 {
+  background-color: #3B3B3B;
+  color: white;
+}
+.dark-mode-3 {
+  background-color: #6b6b6b;
   color: white;
 }
 
 .dark{
-  background-color: #1F1F21;
+  background-color: #3B3B3B;
 }
 
 /* ------------------------------ */
 .offcanvas-bottom {
-  height: 40%;
+  height: 30vh;
 }
 
 
