@@ -1,5 +1,6 @@
 body {
-  background-color: var(--bs-light)
+  background-color: var(--bs-light);
+  font-family: 'Roboto', sans-serif;
 }
 
 .container {
@@ -64,8 +65,8 @@ body {
     pointer-events: none;
   }
   .list-group-item-check:hover + .list-group-item {
-    background-color: var(--bs-light);
-    color: black;
+    background-color: #565758;
+    color: white;
   }
 
   .list-group-item-check:checked + .list-group-item {
@@ -125,20 +126,20 @@ body {
 
 /*-----------------------------*/
 .dark-mode {
-  background-color: black;
-  color: white;
+  background-color: #121212;
+  color: #d7dadc;
 }
 .dark-mode-2 {
-  background-color: #3B3B3B;
-  color: white;
+  background-color: #272729;
+  color: #d7dadc;
 }
 .dark-mode-3 {
-  background-color: #6b6b6b;
-  color: white;
+  background-color: #565758;
+  color: #d7dadc;
 }
 
 .dark{
-  background-color: #3B3B3B;
+  background-color: #272729;
 }
 
 /* ------------------------------ */
