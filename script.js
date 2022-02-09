@@ -213,12 +213,12 @@ function createBar(parent, name, number, numberDays) {
 
     for (let i = 0; i < 5; i++) {
         const bar = document.createElement('div');
-        bar.classList.add('progress-bar', backgrouds[i], 'progress-bar-striped');
+        bar.classList.add('progress-bar', backgrouds[i]);
         bar.setAttribute('role', 'progressbar');
         bar.setAttribute('name', name);
         bar.setAttribute('aria-valuemin', '0');
         bar.setAttribute('aria-valuemax', '100');
-        bar.style = `width: ${number[i] / numberDays * 100}%`
+        bar.style = `width: ${number[i] / numberDays * 100}%`;
         group.appendChild(bar);
     }
     parent.appendChild(group);
@@ -337,6 +337,8 @@ function lightMode() {
     dark.forEach(x => x.classList.remove('dark'));
     const dark2 = document.querySelectorAll('.dark-mode-2');
     dark2.forEach(x => x.classList.remove('dark-mode-2'));
+    const dark3 = document.querySelectorAll('.dark-mode-3');
+    dark3.forEach(x => x.classList.remove('dark-mode-3'));
 
     theme.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
     class="bi bi-moon-fill" viewBox="0 0 16 16" id="theme">
