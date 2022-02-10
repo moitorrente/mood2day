@@ -172,3 +172,30 @@ body {
 textarea {
   resize: none;
 }
+
+
+.icon-square {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1rem;
+  border-radius: 0.75rem;
+}
+
+.bg-0{
+  background-color: #006CFF ;
+}
+.bg-1{
+  background-color: #63ad0e  ;
+}
+.bg-2{
+  background-color: #ffe600;
+}
+.bg-3{
+  background-color: #ff7300;
+}
+.bg-4{
+  background-color: #ca2b2b;
+}

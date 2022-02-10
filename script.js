@@ -10,7 +10,7 @@ let calendarDate = date;
 let mode = 'light';
 
 const calendarBigBar = document.getElementById('calendar-big-bar');
-const calendarSmallBar = document.getElementById('calendar-small-bar');
+const resumeHolder = document.querySelectorAll('.resume-holder');
 
 const resume = document.getElementById('resume');
 const resumeLength = document.getElementById('resume-length');
@@ -142,19 +142,19 @@ function createMonth(dateu) {
         let backgroud;
         switch (saved) {
             case '0':
-                backgroud = 'bg-info';
+                backgroud = 'bg-0';
                 break;
             case '1':
-                backgroud = 'bg-success'
+                backgroud = 'bg-1'
                 break;
             case '2':
-                backgroud = 'bg-warning'
+                backgroud = 'bg-2'
                 break;
             case '3':
-                backgroud = 'bg-danger'
+                backgroud = 'bg-3'
                 break;
             case '4':
-                backgroud = 'bg-dark'
+                backgroud = 'bg-4'
                 break;
         }
         if (backgroud) {
@@ -190,9 +190,11 @@ function createMonth(dateu) {
     }, []);
 
     deleteBar(calendarBigBar);
-    deleteBar(calendarSmallBar);
     createBar(calendarBigBar, 'bar', monthSum, month.numberDays);
-    createBar(calendarSmallBar, 'bar', monthSum, month.numberDays);
+
+    for (let i = 0; i < 5; i++) {
+        monthSum[i] ? resumeHolder[i].childNodes[1].innerHTML = monthSum[i] : resumeHolder[i].childNodes[1].innerHTML = '0';
+    }
 
     createPlaceholder(42 - (month.firstDayIndex + month.numberDays))
     monthName.innerHTML = month.name;
@@ -206,7 +208,7 @@ function deleteBar(parent) {
 }
 
 function createBar(parent, name, number, numberDays) {
-    const backgrouds = ['bg-info', 'bg-success', 'bg-warning', 'bg-danger', 'bg-dark'];
+    const backgrouds = ['bg-0', 'bg-1', 'bg-2', 'bg-3', 'bg-4'];
     const group = document.createElement('div');
     group.classList.add('progress', 'my-3');
     group.setAttribute('id', 'month-recap');
@@ -219,6 +221,7 @@ function createBar(parent, name, number, numberDays) {
         bar.setAttribute('aria-valuemin', '0');
         bar.setAttribute('aria-valuemax', '100');
         bar.style = `width: ${number[i] / numberDays * 100}%`;
+        number[i] ? bar.innerHTML = number[i] : bar.innerHTML;
         group.appendChild(bar);
     }
     parent.appendChild(group);
