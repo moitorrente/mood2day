@@ -60,25 +60,21 @@
                         <label class="list-group-item py-3 text-center" for="option1">
                             <span id="first-option">Maravilloso</span>
                         </label>
-
                         <input class="list-group-item-check" type="radio" name="options" id="option2" value="1"
                             checked="">
                         <label class="list-group-item py-3 text-center" for="option2">
                             <span id="second-option">Bueno</span>
                         </label>
-
                         <input class="list-group-item-check" type="radio" name="options" id="option3" value="2"
                             checked="">
                         <label class="list-group-item py-3 text-center" for="option3">
                             <span id="third-option">Regulinchi</span>
                         </label>
-
                         <input class="list-group-item-check" type="radio" name="options" id="option4" value="3"
                             checked="">
                         <label class="list-group-item py-3 text-center" for="option4">
                             <span id="fourth-option">Mal</span>
                         </label>
-
                         <input class="list-group-item-check" type="radio" name="options" id="option5" value="4"
                             checked="">
                         <label class="list-group-item py-3 text-center" for="option5">
@@ -106,16 +102,16 @@
                                         <div class="carousel-item active" data-bs-toggle="modal"
                                             data-bs-target="#calendar-modal">
                                             <div class="pricing-header px-3 py-1 pt-md-3 mx-auto text-center">
-                                                <h1 class="display-5" id="month-name"></h1>
-                                                <p class="lead" id="year-name"></p>
+                                                <h1 class="display-5 month-name"></h1>
+                                                <p class="lead year-name"></p>
                                             </div>
                                         </div>
                                     </div>
-                                    <button class="carousel-control-prev" type="button" id="prev-month">
+                                    <button class="carousel-control-prev prev-month" type="button">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Previous</span>
                                     </button>
-                                    <button class="carousel-control-next" type="button" id="next-month">
+                                    <button class="carousel-control-next next-month" type="button">
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Next</span>
                                     </button>
@@ -130,18 +126,14 @@
                                     <div class="cal-weekday">Sáb</div>
                                     <div class="cal-weekday">Dom</div>
                                 </div>
-                                <div class="cal-days" id="cal-days">
+                                <div class="cal-days">
                                 </div>
                             </div>
                         </div>
-
                         <div id="calendar-big-bar" class="my-4"></div>
-
                     </div>
                 </div>
             </div>
-
-
             <!-- Modal -->
             <div class="modal fade" id="calendar-modal" data-bs-keyboard="false" tabindex="-1"
                 aria-labelledby="calendar-modal-label" aria-hidden="true">
@@ -150,7 +142,7 @@
                         <div class="modal-body px-4 rounded-4 shadowtext-center">
                             <div class="d-grid gap-1">
                                 <div class="cal-month">
-                                    <button class="btn cal-btn text-dark" type="button" id="prev-month2">
+                                    <button class="btn cal-btn text-dark prev-month" type="button">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd"
@@ -158,10 +150,10 @@
                                         </svg>
                                     </button>
                                     <div class="cal-month-name">
-                                        <h1 class="cal-month-name display-6" id="month-name2">Enero</h1>
-                                        <p class="cal-month-name lead" id="year-name2">2022</p>
+                                        <h1 class="cal-month-name display-6 month-name">Enero</h1>
+                                        <p class="cal-month-name lead year-name">2022</p>
                                     </div>
-                                    <button class="btn cal-btn text-dark" type="button" id="next-month2">
+                                    <button class="btn cal-btn text-dark next-month" type="button">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd"
@@ -170,28 +162,26 @@
                                     </button>
                                 </div>
 
-
-                                <div class="cal" id="calendar">
-
-                                    <hr>
-                                    <div class="d-flex justify-content-center">
-                                        <div class="icon-square text-light flex-shrink-0 me-3 bg-0 resume-holder">
-                                            <span>31</span>
-                                        </div>
-                                        <div class="icon-square text-light flex-shrink-0 me-3 bg-1 resume-holder">
-                                            <span>1</span>
-                                        </div>
-                                        <div class="icon-square text-light flex-shrink-0 me-3 bg-2 resume-holder">
-                                            <span>0</span>
-                                        </div>
-                                        <div class="icon-square text-light flex-shrink-0 me-3 bg-3 resume-holder">
-                                            <span>1</span>
-                                        </div>
-                                        <div class="icon-square text-light flex-shrink-0 me-3 bg-4 resume-holder">
-                                            <span>1</span>
-                                        </div>
+                                <hr>
+                                <div class="d-flex justify-content-center">
+                                    <div class="icon-square text-light flex-shrink-0 me-3 bg-0 resume-holder">
+                                        <span>31</span>
                                     </div>
-                                    <hr>
+                                    <div class="icon-square text-light flex-shrink-0 me-3 bg-1 resume-holder">
+                                        <span>1</span>
+                                    </div>
+                                    <div class="icon-square text-light flex-shrink-0 me-3 bg-2 resume-holder">
+                                        <span>0</span>
+                                    </div>
+                                    <div class="icon-square text-light flex-shrink-0 me-3 bg-3 resume-holder">
+                                        <span>1</span>
+                                    </div>
+                                    <div class="icon-square text-light flex-shrink-0 me-3 bg-4 resume-holder">
+                                        <span>1</span>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="cal" id="calendar">
                                     <div class="cal-weekdays text-muted">
                                         <div class="cal-weekday">Lun</div>
                                         <div class="cal-weekday">Mar</div>
@@ -201,18 +191,18 @@
                                         <div class="cal-weekday">Sáb</div>
                                         <div class="cal-weekday">Dom</div>
                                     </div>
-                                    <div class="cal-days" id="cal-days2">
+                                    <div class="cal-days">
                                     </div>
                                 </div>
+                                <!-- <div class="year-review"></div> -->
                             </div>
                         </div>
-                        <div class="modal-footer flex-column border-top-0">
+                        <div class="modal-footer flex-column border-top-0 d-none">
                             <button type="button" class="btn btn-lg btn-secondary w-100 mx-0 mb-2"
                                 data-bs-dismiss="modal" id="today">Hoy
                             </button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -320,7 +310,6 @@
             </div>
         </div>
     </div>
-
     <nav class="navbar fixed-bottom navbar-expand-sm p-0 d-block d-md-none">
         <div class="container-fluid d-flex justify-content-center ">
             <div class="align-items-center justify-content-center justify-content-lg-start">
@@ -349,7 +338,6 @@
             </div>
         </div>
     </nav>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>

@@ -2,41 +2,45 @@ const url = new URL(window.location.href);
 const weekDay = document.getElementById('weekday');
 const stringDate = document.getElementById('string-date');
 const options = document.getElementsByName('options');
-const next = document.getElementById('next');
-const prev = document.getElementById('prev');
-let date = url.searchParams.get("date") || new Date().toISOString().split('T')[0];
 const sharedData = url.searchParams.get("data");
+const calendarDays = document.querySelectorAll('.cal-days');
+
+let date = url.searchParams.get("date") || new Date().toISOString().split('T')[0];
 let calendarDate = date;
 let mode = 'light';
 
 const calendarBigBar = document.getElementById('calendar-big-bar');
 const resumeHolder = document.querySelectorAll('.resume-holder');
 
+const getSelectedOption = () => document.querySelector('input[name="options"]:checked').value;
+const retrieveOption = (date) => localStorage.getItem(date) ? localStorage.getItem(date)[0] : 5;
+const retrieveText = (date) => localStorage.getItem(date) ? localStorage.getItem(date).substring(1) : '';
+const checkOption = (option) => options[option].checked = true;
+const deleteBar = (parent) => parent.innerHTML = null;
 const resume = document.getElementById('resume');
 const resumeLength = document.getElementById('resume-length');
+
 resume.oninput = () => {
     resumeLength.innerHTML = `${resume.value.length}/100`;
-    localStorage.setItem(date, getSelectedOption() + resume.value)
-}
+    localStorage.setItem(date, getSelectedOption() + resume.value);
+};
 
 options.forEach(option => option.oninput = () => {
     localStorage.setItem(date, getSelectedOption() + resume.value);
     createMonth(date);
 });
 
-next.onclick = () => {
+document.getElementById('next').onclick = () => {
     date = getDay(date, 1);
     createMonth(date)
     displayInfo(date);
 };
 
-prev.onclick = () => {
+document.getElementById('prev').onclick = () => {
     date = getDay(date, -1);
     createMonth(date)
     displayInfo(date);
 };
-
-displayInfo(date);
 
 function displayInfo(date) {
     const descriptions = getCalendarLiteral(date);
@@ -46,85 +50,70 @@ function displayInfo(date) {
     resumeLength.innerHTML = `${resume.value.length}/100`;
     checkOption(retrieveOption(date));
 }
+displayInfo(date);
 
-function getSelectedOption() {
-    return document.querySelector('input[name="options"]:checked').value;
-}
+const monthName = document.querySelectorAll('.month-name');
+const yearName = document.querySelectorAll('.year-name');
 
-function retrieveOption(date) {
-    const day = localStorage.getItem(date);
-    if (day) return day[0];
-    return 5;
-}
+document.querySelectorAll('.next-month').forEach(button => {
+    button.onclick = () => {
+        const d = new Date(calendarDate)
+        const newDate = new Date(d.setMonth(d.getMonth() + 1));
+        calendarDate = newDate.toISOString().split('T')[0];
+        createMonth(calendarDate);
+    }
+});
 
-function retrieveText(date) {
-    const day = localStorage.getItem(date)
-    if (day) return day.substring(1);
-    return '';
-}
-
-function checkOption(option) {
-    options[option].checked = true;
-}
-
-//---------------------------------------------------------------------------------
-const nextMonth = document.getElementById('next-month');
-const prevMonth = document.getElementById('prev-month');
-const nextMonth2 = document.getElementById('next-month2');
-const prevMonth2 = document.getElementById('prev-month2');
-const calendarDays = document.getElementById('cal-days');
-const calendarDays2 = document.getElementById('cal-days2');
-
-const monthName = document.getElementById('month-name');
-const yearName = document.getElementById('year-name');
-const monthName2 = document.getElementById('month-name2');
-const yearName2 = document.getElementById('year-name2');
+document.querySelectorAll('.prev-month').forEach(button => {
+    button.onclick = () => {
+        const d = new Date(calendarDate)
+        const newDate = new Date(d.setMonth(d.getMonth() - 1));
+        calendarDate = newDate.toISOString().split('T')[0];
+        createMonth(calendarDate);
+    }
+});
 
 createMonth(date);
-
-nextMonth.addEventListener('click', () => {
-    let d = new Date(calendarDate)
-    var newDate = new Date(d.setMonth(d.getMonth() + 1));
-    calendarDate = newDate.toISOString().split('T')[0];
-    createMonth(calendarDate);
-});
-prevMonth.addEventListener('click', () => {
-    let d = new Date(calendarDate)
-    var newDate = new Date(d.setMonth(d.getMonth() - 1));
-    calendarDate = newDate.toISOString().split('T')[0];
-    createMonth(calendarDate);
-});
-nextMonth2.addEventListener('click', () => {
-    let d = new Date(calendarDate)
-    var newDate = new Date(d.setMonth(d.getMonth() + 1));
-    calendarDate = newDate.toISOString().split('T')[0];
-    createMonth(calendarDate);
-});
-prevMonth2.addEventListener('click', () => {
-    let d = new Date(calendarDate)
-    var newDate = new Date(d.setMonth(d.getMonth() - 1));
-    calendarDate = newDate.toISOString().split('T')[0];
-    createMonth(calendarDate);
-});
 
 function createPlaceholder(num) {
     for (let i = 0; i < num; i++) {
         const placeholder = document.createElement('button');
+        placeholder.setAttribute('disabled', '');
         placeholder.classList.add('btn', 'cal-btn');
-        placeholder.setAttribute('disabled', '')
-        calendarDays.appendChild(placeholder);
-        const placeholder2 = placeholder.cloneNode(true);
-        calendarDays2.appendChild(placeholder2);
+        calendarDays.forEach(calendar => calendar.appendChild(placeholder.cloneNode(true)));
+    }
+}
+
+// createYear(date);
+
+function createYear(firstDay) {
+    const yearReview = document.querySelector('.year-review');
+    yearReview.innerHTML = null;
+    const monthsFirst = monthsFirstDay(firstDay);
+
+    for (let i = 0; i < monthsFirst.length; i++) {
+        const month = monthInfo(monthsFirst[i]);
+        for (let i = 0; i < month.numberDays; i++) {
+            const tempDay = getDay(month.firstDay, i)
+            const day = document.createElement('button').classList.add('btn', 'year-btn', 'position-relative').setAttribute('date', tempDay);
+            const saved = retrieveOption(day.getAttribute('date'));
+            let backgroud = 'bg-secondary';
+            if (saved) saved == 5 ? backgroud = 'bg-secondary' : `bg-${saved}`;
+            day.innerHTML = `<span class="position-absolute ${backgroud} rounded-circle" style="width: .5em; height: .5em;top: 25%;"></span>`;
+            yearReview.appendChild(day);
+        }
+        for (let i = 0; i < 31 - month.numberDays; i++) {
+            const day = document.createElement('button').classList.add('btn', 'year-btn', 'position-relative').innerHTML = 
+            `<span class="position-absolute bg-none rounded-circle" style="width: .5em; height: .5em;top: 25%;"></span>`;
+            yearReview.appendChild(day);
+        }
     }
 }
 
 function createMonth(dateu) {
     const month = monthInfo(dateu);
-    calendarDays.innerHTML = null;
-    calendarDays2.innerHTML = null;
-
+    calendarDays.forEach(calendar => calendar.innerHTML = null)
     let monthValues = [];
-
     createPlaceholder(month.firstDayIndex - 1)
 
     for (let i = 0; i < month.numberDays; i++) {
@@ -137,51 +126,32 @@ function createMonth(dateu) {
         day.innerHTML = i + 1;
         day.setAttribute('date', getDay(month.firstDay, i));
         const saved = retrieveOption(day.getAttribute('date'));
-
-        if (saved) monthValues.push(saved)
         let backgroud;
-        switch (saved) {
-            case '0':
-                backgroud = 'bg-0';
-                break;
-            case '1':
-                backgroud = 'bg-1'
-                break;
-            case '2':
-                backgroud = 'bg-2'
-                break;
-            case '3':
-                backgroud = 'bg-3'
-                break;
-            case '4':
-                backgroud = 'bg-4'
-                break;
+        if (saved) {
+            monthValues.push(saved);
+            backgroud = `bg-${saved}`
         }
+
         if (backgroud) {
             day.innerHTML = `
             <span class="position-absolute" style="top: 10%;">${i + 1}</span>
             <span class="position-absolute ${backgroud} rounded-circle" style="width: .5em; height: .5em;top: 60%;"></span>`;
         } else {
-            day.innerHTML = `
-            <span class="position-absolute" style="top: 10%;">${i + 1}</span>`;
+            day.innerHTML = `<span class="position-absolute" style="top: 10%;">${i + 1}</span>`;
         }
-        day.addEventListener('click', () => {
-            date = day.getAttribute('date');
-            displayInfo(date);
-            createMonth(date)
-        });
 
         if (date == day.getAttribute('date')) day.classList.add('btn-outline-secondary');
 
-        calendarDays.appendChild(day);
-        const day2 = day.cloneNode(true);
-        day2.setAttribute('data-bs-dismiss', 'modal');
-        day2.addEventListener('click', () => {
-            date = day2.getAttribute('date');
-            displayInfo(date);
-            createMonth(date)
+        calendarDays.forEach((calendar, i) => {
+            if (i > 0) day.setAttribute('data-bs-dismiss', 'modal');
+            const clone = day.cloneNode(true);
+            clone.onclick = () => {
+                date = day.getAttribute('date');
+                displayInfo(date);
+                createMonth(date)
+            }
+            calendar.appendChild(clone);
         });
-        calendarDays2.appendChild(day2);
     }
 
     const monthSum = monthValues.reduce(function (obj, b) {
@@ -189,25 +159,17 @@ function createMonth(dateu) {
         return obj;
     }, []);
 
-    deleteBar(calendarBigBar);
     createBar(calendarBigBar, 'bar', monthSum, month.numberDays);
 
-    for (let i = 0; i < 5; i++) {
-        monthSum[i] ? resumeHolder[i].childNodes[1].innerHTML = monthSum[i] : resumeHolder[i].childNodes[1].innerHTML = '0';
-    }
+    for (let i = 0; i < 5; i++) monthSum[i] ? resumeHolder[i].childNodes[1].innerHTML = monthSum[i] : resumeHolder[i].childNodes[1].innerHTML = '0';
 
-    createPlaceholder(42 - (month.firstDayIndex + month.numberDays))
-    monthName.innerHTML = month.name;
-    yearName.innerHTML = month.year;
-    monthName2.innerHTML = month.name;
-    yearName2.innerHTML = month.year;
-}
-
-function deleteBar(parent) {
-    parent.innerHTML = null;
+    createPlaceholder(42 - (month.firstDayIndex + month.numberDays));
+    monthName.forEach(container => container.innerHTML = month.name);
+    yearName.forEach(container => container.innerHTML = month.year);
 }
 
 function createBar(parent, name, number, numberDays) {
+    deleteBar(parent);
     const backgrouds = ['bg-0', 'bg-1', 'bg-2', 'bg-3', 'bg-4'];
     const group = document.createElement('div');
     group.classList.add('progress', 'my-3');
@@ -216,10 +178,7 @@ function createBar(parent, name, number, numberDays) {
     for (let i = 0; i < 5; i++) {
         const bar = document.createElement('div');
         bar.classList.add('progress-bar', backgrouds[i]);
-        bar.setAttribute('role', 'progressbar');
-        bar.setAttribute('name', name);
-        bar.setAttribute('aria-valuemin', '0');
-        bar.setAttribute('aria-valuemax', '100');
+        bar.setAttribute('aria-valuemax', '100', 'role', 'progressbar', 'name', name, 'aria-valuemin', '0');
         bar.style = `width: ${number[i] / numberDays * 100}%`;
         number[i] ? bar.innerHTML = number[i] : bar.innerHTML;
         group.appendChild(bar);
@@ -228,10 +187,7 @@ function createBar(parent, name, number, numberDays) {
 }
 
 const today = document.getElementById('today');
-today.addEventListener('click', () => {
-    date = new Date().toISOString().split('T')[0];
-    displayInfo(date);
-});
+today.onclick = () => displayInfo(new Date().toISOString().split('T')[0]);
 
 //----------------------------------------------------------
 // const download = document.getElementById('download');
@@ -296,14 +252,7 @@ function loadLocalStorage(data) {
         alert(e)
     }
 }
-
-function errorHandler(evt) {
-    if (evt.target.error.name == 'NotReadableError') {
-        alert('No se puede leer el fichero');
-    } else {
-        alert(evt);
-    }
-}
+const errorHandler = (evt) => evt.target.error.name == 'NotReadableError' ? alert('No se puede leer el fichero') : alert(evt);
 
 function isValidData(day, value) {
     const validDate = Date.parse(day);
@@ -311,19 +260,9 @@ function isValidData(day, value) {
     return validDate && validValue;
 }
 
-/*-----------------------------------*/
-
+const changeMode = () => mode == 'light' ? darkMode() : lightMode();
 const theme = document.getElementById('theme');
-
-theme.addEventListener('click', changeMode)
-
-function changeMode() {
-    if (mode == 'light') {
-        darkMode();
-    } else {
-        lightMode();
-    }
-}
+theme.onclick = changeMode;
 
 function lightMode() {
     mode = 'light';
@@ -343,11 +282,10 @@ function lightMode() {
     const dark3 = document.querySelectorAll('.dark-mode-3');
     dark3.forEach(x => x.classList.remove('dark-mode-3'));
 
-    theme.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-    class="bi bi-moon-fill" viewBox="0 0 16 16" id="theme">
-    <path
-        d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z" />
-</svg>`;
+    theme.innerHTML =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-fill" viewBox="0 0 16 16" id="theme">
+            <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z" />
+         </svg>`;
 }
 
 function darkMode() {
@@ -360,9 +298,10 @@ function darkMode() {
     const carouselDark = document.querySelectorAll('.carousel-dark');
     carouselDark.forEach(x => x.classList.remove('carousel-dark'));
     carouselDark.forEach(x => x.classList.add('carousel-white'));
-    theme.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high-fill" viewBox="0 0 16 16">
-    <path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
-  </svg>`;
+    theme.innerHTML =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high-fill" viewBox="0 0 16 16" id="theme">
+            <path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+         </svg>`;
 
     const modal = document.querySelectorAll('.modal-content');
     modal.forEach(x => x.classList.add('dark'));
@@ -375,7 +314,6 @@ function darkMode() {
     listGroupItem.forEach(x => x.classList.add('dark-mode-2'));
     const formControl = document.querySelectorAll('.form-control');
     formControl.forEach(x => x.classList.add('dark-mode-3'));
-
 }
 
 // const deleteData = document.getElementById('delete');
@@ -413,8 +351,8 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
     darkMode();
 }
 
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+window.matchMedia('(prefers-color-scheme: dark)').onchange = (event) => {
     const mode = event.matches ? "dark" : "light";
     if (mode == 'dark') darkMode();
     if (mode == 'light') lightMode();
-});
+};

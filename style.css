@@ -191,11 +191,33 @@ textarea {
   background-color: #63ad0e  ;
 }
 .bg-2{
-  background-color: #ffe600;
+  background-color: #f1e05a;
 }
 .bg-3{
   background-color: #ff7300;
 }
 .bg-4{
   background-color: #ca2b2b;
+}
+
+
+.bg-none{
+  background-color: none;
+}
+
+.year-review{
+  display: grid;
+  grid-template-rows: repeat(12, 1fr);
+  grid-template-columns: repeat(31, 1fr);
+  align-items: center;
+}
+
+.year-btn {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  height: 1rem;
+  width: 0.5rem;
+  padding: 0;
 }

@@ -2,13 +2,7 @@ const weekday = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'
 const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
 function getCalendarLiteral(time) {
-    let date;
-    if (time) {
-        date = new Date(time);
-    } else {
-        date = new Date();
-    }
-
+    const date = time ? new Date(time) : new Date();
     return {
         weekday: `${weekday[date.getDay()]}`,
         date: `${date.getDate()} ${months[date.getMonth()]}`
@@ -16,8 +10,7 @@ function getCalendarLiteral(time) {
 }
 
 function getDay(time, offset) {
-    let date;
-    time ? date = new Date(time) : date = new Date();
+    const date = time ? new Date(time) : new Date();
     date.setDate(date.getDate() + offset);
     return date.toISOString().split('T')[0];
 }
@@ -31,4 +24,13 @@ function monthInfo(time) {
         name: months[date.getMonth()],
         year: date.getFullYear()
     };
+}
+
+function monthsFirstDay(time) {
+    const date = new Date(new Date(time).getFullYear(), 0, 1);
+    let dates = [];
+    for (let i = 0; i < 12; i++) {
+        dates.push(new Date(date.getFullYear(), date.getMonth() + i, 2).toISOString().split('T')[0])
+    }
+    return dates;
 }
