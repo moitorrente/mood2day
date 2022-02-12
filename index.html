@@ -21,6 +21,7 @@
             <div class="d-flex flex-column flex-md-row align-items-center pb-1 mb-4 border-bottom">
                 <a class="d-flex align-items-center text-dark text-decoration-none">
                     <span class="fs-4">mood2day</span>
+                    <span class="fw-light lh-sm mb-0" style="font-size: xx-small;">v0.1.1</span>
                 </a>
                 <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
                     <a href="#" class="me-3 py-2 text-dark text-decoration-none">
@@ -132,71 +133,125 @@
                         </div>
                         <div id="calendar-big-bar" class="my-4"></div>
                     </div>
+                    
                 </div>
+
+                <div class="d-none d-md-block">
+                    <div class="year-review p-3 border rounded"></div>
+                </div>
+
             </div>
             <!-- Modal -->
             <div class="modal fade" id="calendar-modal" data-bs-keyboard="false" tabindex="-1"
                 aria-labelledby="calendar-modal-label" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
-                        <div class="modal-body px-4 rounded-4 shadowtext-center">
-                            <div class="d-grid gap-1">
-                                <div class="cal-month">
-                                    <button class="btn cal-btn text-dark prev-month" type="button">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
-                                        </svg>
-                                    </button>
-                                    <div class="cal-month-name">
-                                        <h1 class="cal-month-name display-6 month-name">Enero</h1>
-                                        <p class="cal-month-name lead year-name">2022</p>
+                        <div id="1" class="d-none">
+                            <div class="modal-body px-4 rounded-4 shadowtext-center">
+                                <div class="d-grid gap-1">
+                                    <div class="cal-month">
+                                        <button class="btn cal-btn text-dark prev-month" type="button">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                                            </svg>
+                                        </button>
+                                        <div class="cal-month-name">
+                                            <h1 class="cal-month-name display-6 month-name">Enero</h1>
+                                            <p class="cal-month-name lead year-name">2022</p>
+                                        </div>
+                                        <button class="btn cal-btn text-dark next-month" type="button">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                                            </svg>
+                                        </button>
                                     </div>
-                                    <button class="btn cal-btn text-dark next-month" type="button">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
-                                        </svg>
-                                    </button>
+                                    <hr>
+                                    <div class="d-flex justify-content-center">
+                                        <div class="icon-square text-light flex-shrink-0 me-3 bg-0 resume-holder">
+                                            <span>31</span>
+                                        </div>
+                                        <div class="icon-square text-light flex-shrink-0 me-3 bg-1 resume-holder">
+                                            <span>1</span>
+                                        </div>
+                                        <div class="icon-square text-light flex-shrink-0 me-3 bg-2 resume-holder">
+                                            <span>0</span>
+                                        </div>
+                                        <div class="icon-square text-light flex-shrink-0 me-3 bg-3 resume-holder">
+                                            <span>1</span>
+                                        </div>
+                                        <div class="icon-square text-light flex-shrink-0 me-3 bg-4 resume-holder">
+                                            <span>1</span>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="cal" id="calendar">
+                                        <div class="cal-weekdays text-muted">
+                                            <div class="cal-weekday">Lun</div>
+                                            <div class="cal-weekday">Mar</div>
+                                            <div class="cal-weekday">Mié</div>
+                                            <div class="cal-weekday">Jue</div>
+                                            <div class="cal-weekday">Vie</div>
+                                            <div class="cal-weekday">Sáb</div>
+                                            <div class="cal-weekday">Dom</div>
+                                        </div>
+                                        <div class="cal-days">
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <hr>
-                                <div class="d-flex justify-content-center">
-                                    <div class="icon-square text-light flex-shrink-0 me-3 bg-0 resume-holder">
-                                        <span>31</span>
-                                    </div>
-                                    <div class="icon-square text-light flex-shrink-0 me-3 bg-1 resume-holder">
-                                        <span>1</span>
-                                    </div>
-                                    <div class="icon-square text-light flex-shrink-0 me-3 bg-2 resume-holder">
-                                        <span>0</span>
-                                    </div>
-                                    <div class="icon-square text-light flex-shrink-0 me-3 bg-3 resume-holder">
-                                        <span>1</span>
-                                    </div>
-                                    <div class="icon-square text-light flex-shrink-0 me-3 bg-4 resume-holder">
-                                        <span>1</span>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="cal" id="calendar">
-                                    <div class="cal-weekdays text-muted">
-                                        <div class="cal-weekday">Lun</div>
-                                        <div class="cal-weekday">Mar</div>
-                                        <div class="cal-weekday">Mié</div>
-                                        <div class="cal-weekday">Jue</div>
-                                        <div class="cal-weekday">Vie</div>
-                                        <div class="cal-weekday">Sáb</div>
-                                        <div class="cal-weekday">Dom</div>
-                                    </div>
-                                    <div class="cal-days">
-                                    </div>
-                                </div>
-                                <!-- <div class="year-review"></div> -->
                             </div>
                         </div>
+                        <div id="2">
+                            <div class="modal-body px-4 rounded-4 shadowtext-center">
+                                <div class="d-grid gap-1">
+                                    <div class="cal-month">
+                                        <button class="btn cal-btn text-dark prev-year" type="button">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                                            </svg>
+                                        </button>
+                                        <div class="cal-month-name">
+                                            <h1 class="cal-month-name display-6 year-name-resume">2022</h1>
+                                        </div>
+                                        <button class="btn cal-btn text-dark next-year" type="button">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex justify-content-center">
+                                        <div class="icon-square text-light flex-shrink-0 me-3 bg-0 resume-holder">
+                                            <span>31</span>
+                                        </div>
+                                        <div class="icon-square text-light flex-shrink-0 me-3 bg-1 resume-holder">
+                                            <span>1</span>
+                                        </div>
+                                        <div class="icon-square text-light flex-shrink-0 me-3 bg-2 resume-holder">
+                                            <span>0</span>
+                                        </div>
+                                        <div class="icon-square text-light flex-shrink-0 me-3 bg-3 resume-holder">
+                                            <span>1</span>
+                                        </div>
+                                        <div class="icon-square text-light flex-shrink-0 me-3 bg-4 resume-holder">
+                                            <span>1</span>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="year-review"></div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
                         <div class="modal-footer flex-column border-top-0 d-none">
                             <button type="button" class="btn btn-lg btn-secondary w-100 mx-0 mb-2"
                                 data-bs-dismiss="modal" id="today">Hoy
@@ -315,7 +370,7 @@
             <div class="align-items-center justify-content-center justify-content-lg-start">
                 <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                     <li>
-                        <a href="#" class="nav-link text-dark" data-bs-toggle="modal" data-bs-target="#calendar-modal">
+                        <a href="#" class="nav-link text-dark" data-bs-toggle="modal" data-bs-target="#calendar-modal" onclick="document.getElementById('2').classList.add('d-none');document.getElementById('1').classList.remove('d-none')">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-calendar3" viewBox="0 0 16 16">
                                 <path
@@ -332,6 +387,14 @@
                                 <path
                                     d="M12.258 3h-8.51l-.083 2.46h.479c.26-1.544.758-1.783 2.693-1.845l.424-.013v7.827c0 .663-.144.82-1.3.923v.52h4.082v-.52c-1.162-.103-1.306-.26-1.306-.923V3.602l.431.013c1.934.062 2.434.301 2.693 1.846h.479L12.258 3z" />
                             </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-dark" data-bs-toggle="modal" data-bs-target="#calendar-modal" onclick="document.getElementById('1').classList.add('d-none');document.getElementById('2').classList.remove('d-none')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
+                                <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                              </svg>
                         </a>
                     </li>
                 </ul>

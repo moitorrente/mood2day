@@ -4,6 +4,7 @@ const stringDate = document.getElementById('string-date');
 const options = document.getElementsByName('options');
 const sharedData = url.searchParams.get("data");
 const calendarDays = document.querySelectorAll('.cal-days');
+const monthAb = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 
 let date = url.searchParams.get("date") || new Date().toISOString().split('T')[0];
 let calendarDate = date;
@@ -84,33 +85,56 @@ function createPlaceholder(num) {
     }
 }
 
-// createYear(date);
 
 function createYear(firstDay) {
-    const yearReview = document.querySelector('.year-review');
-    yearReview.innerHTML = null;
+    const yearReview = document.querySelectorAll('.year-review');
+    yearReview.forEach(review => review.innerHTML = null);
     const monthsFirst = monthsFirstDay(firstDay);
+
+    let yearValues = [];
+
+    const p = document.createElement('p');
+    p.style = 'font-size: xx-small';
+    p.classList.add('m-0');
 
     for (let i = 0; i < monthsFirst.length; i++) {
         const month = monthInfo(monthsFirst[i]);
+        p.innerHTML = monthAb[i];
+        yearReview.forEach(review => review.appendChild(p.cloneNode(true)));
         for (let i = 0; i < month.numberDays; i++) {
             const tempDay = getDay(month.firstDay, i)
-            const day = document.createElement('button').classList.add('btn', 'year-btn', 'position-relative').setAttribute('date', tempDay);
+            const day = document.createElement('button');
+            day.classList.add('btn', 'year-btn', 'position-relative');
+            day.setAttribute('date', tempDay);
             const saved = retrieveOption(day.getAttribute('date'));
+            if (saved != 5) yearValues.push(saved);
             let backgroud = 'bg-secondary';
-            if (saved) saved == 5 ? backgroud = 'bg-secondary' : `bg-${saved}`;
-            day.innerHTML = `<span class="position-absolute ${backgroud} rounded-circle" style="width: .5em; height: .5em;top: 25%;"></span>`;
-            yearReview.appendChild(day);
+            backgroud = saved == 5 ? 'bg-secondary' : `bg-${saved}`;
+            day.innerHTML = `<span class="position-absolute ${backgroud} rounded-circle" style="width: .5em; height: .5em;top: 25%;left: 150%"></span>`;
+            yearReview.forEach(review => review.appendChild(day.cloneNode(true)));
         }
         for (let i = 0; i < 31 - month.numberDays; i++) {
-            const day = document.createElement('button').classList.add('btn', 'year-btn', 'position-relative').innerHTML = 
-            `<span class="position-absolute bg-none rounded-circle" style="width: .5em; height: .5em;top: 25%;"></span>`;
-            yearReview.appendChild(day);
+            const day = document.createElement('button');
+            day.classList.add('btn', 'year-btn', 'position-relative');
+            day.innerHTML =
+                `<span class="position-absolute bg-none" style="width: .5em; height: .5em;top: 25%;"></span>`;
+            yearReview.forEach(review => review.appendChild(day.cloneNode(true)));
         }
+    }
+
+    const yearSum = yearValues.reduce(function (obj, b) {
+        obj[b] = ++obj[b] || 1;
+        return obj;
+    }, []);
+
+    //Refactor
+    for (let i = 5; i < 10; i++) {
+        yearSum[i - 5] ? resumeHolder[i].childNodes[1].innerHTML = yearSum[i - 5] : resumeHolder[i].childNodes[1].innerHTML = '0';
     }
 }
 
 function createMonth(dateu) {
+    createYear(date);
     const month = monthInfo(dateu);
     calendarDays.forEach(calendar => calendar.innerHTML = null)
     let monthValues = [];
