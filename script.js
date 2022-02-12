@@ -33,14 +33,16 @@ options.forEach(option => option.oninput = () => {
 
 document.getElementById('next').onclick = () => {
     date = getDay(date, 1);
-    createMonth(date)
+    createMonth(date);
     displayInfo(date);
+    createYear(date)
 };
 
 document.getElementById('prev').onclick = () => {
     date = getDay(date, -1);
-    createMonth(date)
+    createMonth(date);
     displayInfo(date);
+    createYear(date);
 };
 
 function displayInfo(date) {
@@ -55,6 +57,7 @@ displayInfo(date);
 
 const monthName = document.querySelectorAll('.month-name');
 const yearName = document.querySelectorAll('.year-name');
+const yearNameResume = document.querySelectorAll('.year-name-resume')
 
 document.querySelectorAll('.next-month').forEach(button => {
     button.onclick = () => {
@@ -62,6 +65,7 @@ document.querySelectorAll('.next-month').forEach(button => {
         const newDate = new Date(d.setMonth(d.getMonth() + 1));
         calendarDate = newDate.toISOString().split('T')[0];
         createMonth(calendarDate);
+        createYear(calendarDate)
     }
 });
 
@@ -71,6 +75,25 @@ document.querySelectorAll('.prev-month').forEach(button => {
         const newDate = new Date(d.setMonth(d.getMonth() - 1));
         calendarDate = newDate.toISOString().split('T')[0];
         createMonth(calendarDate);
+        createYear(calendarDate);
+    }
+});
+
+
+document.querySelectorAll('.next-year').forEach(button => {
+    button.onclick = () => {
+        const d = new Date(calendarDate)
+        const newDate = new Date(d.setFullYear(d.getFullYear() + 1));
+        calendarDate = newDate.toISOString().split('T')[0];
+        createYear(calendarDate);
+    }
+});
+document.querySelectorAll('.prev-year').forEach(button => {
+    button.onclick = () => {
+        const d = new Date(calendarDate)
+        const newDate = new Date(d.setFullYear(d.getFullYear() - 1));
+        calendarDate = newDate.toISOString().split('T')[0];
+        createYear(calendarDate)
     }
 });
 
@@ -87,6 +110,7 @@ function createPlaceholder(num) {
 
 
 function createYear(firstDay) {
+    yearNameResume.forEach(resume => resume.innerHTML = getYear(firstDay));
     const yearReview = document.querySelectorAll('.year-review');
     yearReview.forEach(review => review.innerHTML = null);
     const monthsFirst = monthsFirstDay(firstDay);
@@ -106,6 +130,7 @@ function createYear(firstDay) {
             const day = document.createElement('button');
             day.classList.add('btn', 'year-btn', 'position-relative');
             day.setAttribute('date', tempDay);
+            day.setAttribute('disabled', '');
             const saved = retrieveOption(day.getAttribute('date'));
             if (saved != 5) yearValues.push(saved);
             let backgroud = 'bg-secondary';

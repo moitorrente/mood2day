@@ -9,6 +9,11 @@ function getCalendarLiteral(time) {
     }
 }
 
+function getYear(time){
+    const date = new Date(time);
+    return date.getFullYear();
+}
+
 function getDay(time, offset) {
     const date = time ? new Date(time) : new Date();
     date.setDate(date.getDate() + offset);
