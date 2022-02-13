@@ -144,7 +144,7 @@ body {
 
 /* ------------------------------ */
 .offcanvas-bottom {
-  height: 30vh;
+  height: 100%;
 }
 
 /*-------------------------*/
@@ -180,6 +180,15 @@ textarea {
   justify-content: center;
   width: 2.5rem;
   height: 2.5rem;
+  font-size: 1rem;
+  border-radius: 0.75rem;
+}
+.icon-square-l {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
   font-size: 1rem;
   border-radius: 0.75rem;
 }

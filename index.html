@@ -21,9 +21,17 @@
             <div class="d-flex flex-column flex-md-row align-items-center pb-1 mb-4 border-bottom">
                 <a class="d-flex align-items-center text-dark text-decoration-none">
                     <span class="fs-4">mood2day</span>
-                    <span class="fw-light lh-sm mb-0" style="font-size: xx-small;">v0.1.1</span>
+                    <span class="fw-light lh-sm mb-0" style="font-size: xx-small;">v0.1.2</span>
                 </a>
                 <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+                    <a href="#" class="me-3 py-2 text-dark text-decoration-none" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasTop">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-gear-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+                        </svg>
+                    </a>
                     <a href="#" class="me-3 py-2 text-dark text-decoration-none">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-moon-fill" viewBox="0 0 16 16" id="theme">
@@ -39,7 +47,7 @@
                 <div class="col-md-5">
                     <div id="date-carousel" class="carousel carousel-dark">
                         <div class="carousel-inner" id="carousel-container">
-                            <div class="carousel-item active" data-bs-toggle="modal" data-bs-target="#calendar-modal">
+                            <div class="carousel-item active">
                                 <div class="pricing-header px-3 py-1 pt-md-3 mx-auto text-center">
                                     <h1 class="display-5" id="string-date"></h1>
                                     <p class="lead" id="weekday"></p>
@@ -84,7 +92,7 @@
                         <input class="list-group-item-check" type="radio" name="options" id="option6" value="5"
                             checked="" hidden>
                         <button class="w-100 my-4 btn btn-lg rounded-4 btn-outline-secondary d-none d-md-block"
-                            data-bs-toggle="offcanvas" data-bs-target="#text-modal">
+                            data-bs-toggle="modal" data-bs-target="#calendar-modal" onclick="showModal(3)">
                             Resumen
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-fonts" viewBox="0 0 16 16">
@@ -100,8 +108,7 @@
                             <div class="cal">
                                 <div id="date-carousel" class="carousel carousel-dark">
                                     <div class="carousel-inner" id="carousel-container">
-                                        <div class="carousel-item active" data-bs-toggle="modal"
-                                            data-bs-target="#calendar-modal">
+                                        <div class="carousel-item active">
                                             <div class="pricing-header px-3 py-1 pt-md-3 mx-auto text-center">
                                                 <h1 class="display-5 month-name"></h1>
                                                 <p class="lead year-name"></p>
@@ -133,20 +140,37 @@
                         </div>
                         <div id="calendar-big-bar" class="my-4"></div>
                     </div>
-                    
+
                 </div>
 
                 <div class="d-none d-md-block">
                     <div class="year-review p-3 border rounded"></div>
                 </div>
+                <div class="d-flex d-block d-md-none my-4 justify-content-center d-none lolito-container">
+                    <div class="icon-square-l bg-secondary" >
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="34pt" height="34pt"
+                            viewBox="0 0 16 16" fill="#FFFFFF">
 
+                            <g transform="translate(0,16) scale(0.003125,-0.003125)" fill="#00000" stroke="#00000">
+                                <path
+                                    d="M640 4640 l0 -160 -160 0 -160 0 0 -640 0 -640 -160 0 -160 0 0 -960 0 -960 160 0 160 0 0 -160 0 -160 160 0 160 0 0 -160 0 -160 160 0 160 0 0 -160 0 -160 320 0 320 0 0 -160 0 -160 960 0 960 0 0 160 0 160 320 0 320 0 0 160 0 160 160 0 160 0 0 160 0 160 160 0 160 0 0 160 0 160 160 0 160 0 0 960 0 960 -160 0 -160 0 0 640 0 640 -160 0 -160 0 0 160 0 160 -320 0 -320 0 0 -160 0 -160 -160 0 -160 0 0 -160 0 -160 -160 0 -160 0 0 -160 0 -160 -640 0 -640 0 0 160 0 160 -160 0 -160 0 0 160 0 160 -160 0 -160 0 0 160 0 160 -320 0 -320 0 0 -160z m640 -320 l0 -160 160 0 160 0 0 -160 0 -160 160 0 160 0 0 -160 0 -160 640 0 640 0 0 160 0 160 160 0 160 0 0 160 0 160 160 0 160 0 0 160 0 160 320 0 320 0 0 -640 0 -640 160 0 160 0 0 -480 0 -480 -320 0 -320 0 0 -160 0 -160 320 0 320 0 0 -160 0 -160 -320 0 -320 0 0 -160 0 -160 160 0 160 0 0 -160 0 -160 -160 0 -160 0 0 -160 0 -160 -320 0 -320 0 0 -160 0 -160 -960 0 -960 0 0 160 0 160 -320 0 -320 0 0 160 0 160 -160 0 -160 0 0 160 0 160 160 0 160 0 0 160 0 160 -320 0 -320 0 0 160 0 160 320 0 320 0 0 160 0 160 -320 0 -320 0 0 480 0 480 160 0 160 0 0 640 0 640 320 0 320 0 0 -160z" />
+                                <path
+                                    d="M1600 2720 l0 -160 -160 0 -160 0 0 -160 0 -160 160 0 160 0 0 160 0 160 160 0 160 0 0 -160 0 -160 160 0 160 0 0 160 0 160 -160 0 -160 0 0 160 0 160 -160 0 -160 0 0 -160z" />
+                                <path
+                                    d="M3200 2720 l0 -160 -160 0 -160 0 0 -160 0 -160 160 0 160 0 0 160 0 160 160 0 160 0 0 -160 0 -160 160 0 160 0 0 160 0 160 -160 0 -160 0 0 160 0 160 -160 0 -160 0 0 -160z" />
+                                <path
+                                    d="M1920 1440 l0 -160 160 0 160 0 0 -160 0 -160 320 0 320 0 0 160 0 160 160 0 160 0 0 160 0 160 -160 0 -160 0 0 -160 0 -160 -320 0 -320 0 0 160 0 160 -160 0 -160 0 0 -160z" />
+                            </g>
+                        </svg>
+                    </div>
+                </div>
             </div>
             <!-- Modal -->
             <div class="modal fade" id="calendar-modal" data-bs-keyboard="false" tabindex="-1"
                 aria-labelledby="calendar-modal-label" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
-                        <div id="1" class="d-none">
+                        <div id="1">
                             <div class="modal-body px-4 rounded-4 shadowtext-center">
                                 <div class="d-grid gap-1">
                                     <div class="cal-month">
@@ -172,19 +196,19 @@
                                     <hr>
                                     <div class="d-flex justify-content-center">
                                         <div class="icon-square text-light flex-shrink-0 me-3 bg-0 resume-holder">
-                                            <span>31</span>
+                                            <span></span>
                                         </div>
                                         <div class="icon-square text-light flex-shrink-0 me-3 bg-1 resume-holder">
-                                            <span>1</span>
+                                            <span></span>
                                         </div>
                                         <div class="icon-square text-light flex-shrink-0 me-3 bg-2 resume-holder">
-                                            <span>0</span>
+                                            <span></span>
                                         </div>
                                         <div class="icon-square text-light flex-shrink-0 me-3 bg-3 resume-holder">
-                                            <span>1</span>
+                                            <span></span>
                                         </div>
                                         <div class="icon-square text-light flex-shrink-0 me-3 bg-4 resume-holder">
-                                            <span>1</span>
+                                            <span></span>
                                         </div>
                                     </div>
                                     <hr>
@@ -251,6 +275,18 @@
                             </div>
 
                         </div>
+                        <div id="3">
+                            <div class="offcanvas-header container pb-0">
+                                <h1 class="display-6 cal-month-name" id="offcanvasTopLabel">Resumen del día</h1>
+                            </div>
+                            <div class="offcanvas-body align-items-center container">
+                                <div class="form-floating">
+                                    <textarea class="form-control" rows="3" id="resume" style="height: 100%"
+                                        maxlength="100"></textarea>
+                                    <label for="resume" id="resume-length" style="color: grey">0/100</label>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="modal-footer flex-column border-top-0 d-none">
                             <button type="button" class="btn btn-lg btn-secondary w-100 mx-0 mb-2"
@@ -262,7 +298,7 @@
             </div>
         </div>
     </div>
-    <!-- <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+    <div class="offcanvas offcanvas-bottom container" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
         <div class="offcanvas-header container">
             <h5 id="offcanvasTopLabel">Configuración</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -279,6 +315,12 @@
                     <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
                         aria-selected="false">Datos
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-advanced" type="button" role="tab" aria-controls="pills-advanced"
+                        aria-selected="false">Avanzado
                     </button>
                 </li>
             </ul>
@@ -349,9 +391,16 @@
                         </svg>
                     </button>
                 </div>
+                <div class="tab-pane container-sm" id="pills-advanced" role="tabpanel"
+                    aria-labelledby="pills-profile-tab">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="lolito-mode">
+                        <label class="form-check-label" for="flexSwitchCheckChecked">Modo Lolito</label>
+                      </div>
+                </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
     <div class="offcanvas offcanvas-bottom modal-content container-offcanvas container" tabindex="-1" id="text-modal"
         aria-labelledby="offcanvasTopLabel">
@@ -370,7 +419,8 @@
             <div class="align-items-center justify-content-center justify-content-lg-start">
                 <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                     <li>
-                        <a href="#" class="nav-link text-dark" data-bs-toggle="modal" data-bs-target="#calendar-modal" onclick="document.getElementById('2').classList.add('d-none');document.getElementById('1').classList.remove('d-none')">
+                        <a href="#" class="nav-link text-dark" data-bs-toggle="modal" data-bs-target="#calendar-modal"
+                            onclick="showModal(1)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-calendar3" viewBox="0 0 16 16">
                                 <path
@@ -381,7 +431,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link text-dark" data-bs-toggle="offcanvas" data-bs-target="#text-modal">
+                        <a href="#" class="nav-link text-dark" data-bs-toggle="modal" data-bs-target="#calendar-modal"
+                            onclick="showModal(3)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-fonts" viewBox="0 0 16 16">
                                 <path
@@ -390,11 +441,15 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link text-dark" data-bs-toggle="modal" data-bs-target="#calendar-modal" onclick="document.getElementById('1').classList.add('d-none');document.getElementById('2').classList.remove('d-none')">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
-                                <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
-                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                              </svg>
+                        <a href="#" class="nav-link text-dark" data-bs-toggle="modal" data-bs-target="#calendar-modal"
+                            onclick="showModal(2)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-calendar-check" viewBox="0 0 16 16">
+                                <path
+                                    d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                                <path
+                                    d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                            </svg>
                         </a>
                     </li>
                 </ul>

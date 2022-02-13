@@ -130,7 +130,6 @@ function createYear(firstDay) {
             const day = document.createElement('button');
             day.classList.add('btn', 'year-btn', 'position-relative');
             day.setAttribute('date', tempDay);
-            day.setAttribute('disabled', '');
             const saved = retrieveOption(day.getAttribute('date'));
             if (saved != 5) yearValues.push(saved);
             let backgroud = 'bg-secondary';
@@ -239,14 +238,14 @@ const today = document.getElementById('today');
 today.onclick = () => displayInfo(new Date().toISOString().split('T')[0]);
 
 //----------------------------------------------------------
-// const download = document.getElementById('download');
-// const upload = document.getElementById('upload');
-// const uploadFile = document.getElementById('upload-file');
+const download = document.getElementById('download');
+const upload = document.getElementById('upload');
+const uploadFile = document.getElementById('upload-file');
 
-// download.addEventListener('click', () => {
-//     const d = new Date().toISOString().split('T')[0];
-//     saveTextAsFile(JSON.stringify(localStorage), `mood2day-${d}.txt`)
-// });
+download.addEventListener('click', () => {
+    const d = new Date().toISOString().split('T')[0];
+    saveTextAsFile(JSON.stringify(localStorage), `mood2day-${d}.txt`)
+});
 
 function downloadData() {
     const d = new Date().toISOString().split('T')[0];
@@ -269,24 +268,24 @@ function saveTextAsFile(textToWrite, fileNameToSaveAs) {
     downloadLink.click();
 }
 
-// upload.addEventListener('click', () => {
-//     uploadFile.click();
-// });
+upload.addEventListener('click', () => {
+    uploadFile.click();
+});
 
-// uploadFile.addEventListener('change', (event) => {
-//     const fileList = event.target.files;
-//     getAsText(fileList[0])
-// });
+uploadFile.addEventListener('change', (event) => {
+    const fileList = event.target.files;
+    getAsText(fileList[0])
+});
 
-// function getAsText(fileToRead) {
-//     const reader = new FileReader();
-//     reader.readAsText(fileToRead);
-//     reader.onload = (event) => {
-//         const file = event.target.result;
-//         loadLocalStorage(file)
-//     };
-//     reader.onerror = errorHandler;
-// }
+function getAsText(fileToRead) {
+    const reader = new FileReader();
+    reader.readAsText(fileToRead);
+    reader.onload = (event) => {
+        const file = event.target.result;
+        loadLocalStorage(file)
+    };
+    reader.onerror = errorHandler;
+}
 
 function loadLocalStorage(data) {
     localStorage.clear();
@@ -305,8 +304,8 @@ const errorHandler = (evt) => evt.target.error.name == 'NotReadableError' ? aler
 
 function isValidData(day, value) {
     const validDate = Date.parse(day);
-    const validValue = value.length == 1 && !isNaN(parseInt(value));
-    return validDate && validValue;
+    //const validValue = value.length == 1 && !isNaN(parseInt(value.substring(0,1)));
+    return validDate;// && validValue;
 }
 
 const changeMode = () => mode == 'light' ? darkMode() : lightMode();
@@ -340,6 +339,7 @@ function lightMode() {
 function darkMode() {
     mode = 'dark';
     document.body.classList.add('dark-mode');
+    document.querySelectorAll('.offcanvas').forEach(x => x.classList.add('dark-mode-2'));
     let textDark = document.querySelectorAll('.text-dark');
     textDark.forEach(x => x.classList.remove('text-dark'));
     textDark.forEach(x => x.classList.add('text-white'));
@@ -365,15 +365,15 @@ function darkMode() {
     formControl.forEach(x => x.classList.add('dark-mode-3'));
 }
 
-// const deleteData = document.getElementById('delete');
-// deleteData.addEventListener('click', () => {
+const deleteData = document.getElementById('delete');
+deleteData.addEventListener('click', () => {
 
-//     if (confirm("¿Quieres borrar los datos")) {
-//         localStorage.clear();
-//         createMonth(date);
-//         displayInfo(date);
-//     }
-// });
+    if (confirm("¿Quieres borrar los datos")) {
+        localStorage.clear();
+        createMonth(date);
+        displayInfo(date);
+    }
+});
 
 //-----------------------------------------
 
@@ -405,3 +405,48 @@ window.matchMedia('(prefers-color-scheme: dark)').onchange = (event) => {
     if (mode == 'dark') darkMode();
     if (mode == 'light') lightMode();
 };
+
+function showModal(modal) {
+    const calendarModal = document.getElementById('1');
+    const yearResumeModal = document.getElementById('2');
+    const dayTextModal = document.getElementById('3');
+
+    calendarModal.classList.add('d-none');
+    yearResumeModal.classList.add('d-none');
+    dayTextModal.classList.add('d-none');
+
+    switch (modal) {
+        case 1:
+            calendarModal.classList.remove('d-none');
+            break;
+        case 2:
+            yearResumeModal.classList.remove('d-none');
+            break;
+        case 3:
+            dayTextModal.classList.remove('d-none');
+            break;
+    }
+}
+
+
+
+const lolitoContainer = document.querySelectorAll('.lolito-container');
+const lolitoMode = document.getElementById('lolito-mode');
+lolitoMode.onchange = () => {
+    console.log(lolitoMode.checked)
+    lolitoContainer.forEach(lolito => console.log(lolito.classList))
+    lolitoMode.checked ? lolitoContainer.forEach(lolito => lolito.classList.remove('d-none')) : lolitoContainer.forEach(lolito => lolito.classList.add('d-none'));
+    localStorage.setItem('lolito-mode', lolitoMode.checked);
+}
+
+const retrieveLolitoMode = () => {
+    const lolito = localStorage.getItem('lolito-mode');
+    if (lolito === 'true') {
+        lolitoContainer.forEach(lolito => lolito.classList.remove('d-none'));
+        lolitoMode.checked = lolito;
+    }else{
+        lolitoMode.checked = false;
+    }
+}
+
+retrieveLolitoMode();
