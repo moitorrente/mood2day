@@ -1,6 +1,18 @@
 body {
   background-color: var(--bs-light);
   font-family: 'Roboto', sans-serif;
+    /* background: linear-gradient(313deg, rgb(204, 204, 204) 0%, rgba(223, 217, 247, 0.841) 35%, rgb(199, 232, 240) 100%); */
+
+}
+
+.color{
+    background: linear-gradient(313deg, rgb(204, 204, 204) 0%, rgba(223, 217, 247, 0.841) 35%, rgb(199, 232, 240) 100%);
+    padding: 0px;
+    margin: 0px;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
 }
 
 .container {

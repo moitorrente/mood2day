@@ -8,6 +8,7 @@ const monthAb = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 
 
 const lolitoContainer = document.querySelectorAll('.lolito-container');
 const lolitoMode = document.getElementById('lolito-mode');
+const colorMode = document.getElementById('color-mode');
 
 let date = url.searchParams.get("date") || new Date().toISOString().split('T')[0];
 let calendarDate = date;
@@ -438,7 +439,6 @@ function showModal(modal) {
 
 
 lolitoMode.onchange = () => {
-    console.log(lolitoMode.checked)
     lolitoContainer.forEach(lolito => console.log(lolito.classList))
     lolitoMode.checked ? lolitoContainer.forEach(lolito => lolito.classList.remove('d-none')) : lolitoContainer.forEach(lolito => lolito.classList.add('d-none'));
     localStorage.setItem('lolito-mode', lolitoMode.checked);
@@ -455,3 +455,23 @@ const retrieveLolitoMode = () => {
 }
 
 retrieveLolitoMode();
+
+colorMode.onchange = () => {
+    localStorage.setItem('color-mode', colorMode.checked);
+    document.body.classList.toggle('color')
+    retrieveColorMode();
+}
+
+const retrieveColorMode = () => {
+    const color = localStorage.getItem('color-mode');
+    if (color === 'true') {
+        colorMode.checked = true;
+        lightMode();
+        document.body.classList.add('color');
+    } else {
+        colorMode.checked = false;
+        document.body.classList.remove('color')
+    }
+}
+
+retrieveColorMode();
